@@ -83,17 +83,19 @@ void RemoveItem(Item*& List, int& Position, int& Size, int& Count)
 	Size--;
 	Count--;
 }
-void InsertItem(Item*& List, int& Position, int& Size, int& Count) 
+void DisplayItem(const Item* List, const int& Size, ostream& out)
 {
-
-}
-void DisplayItem(const Item* List, const int& Size)
-{
-
+	for (int i = 0; i < Size; i++) 
+	{
+		out << List[i].ItemNumber << " ";
+		out << List[i].NumberInStock << " ";
+		out << List[i].MinimunInventoryLevel << " ";
+		out << List[i].UnitPrice << " ";
+		out << List[i].ItemName << endl;
+	}
 }
 int SearchForItem(Item* List, const int& Size, Item Key)
 {
-	
 	for (int i = 0; i < Size; i++) 
 	{
 		if (List[i] == Key)
