@@ -23,6 +23,18 @@ bool operator==(Item& Item1, Item& Item2)
 	*/
 	return (Item1.ItemNumber == Item2.ItemNumber && Item1.NumberInStock == Item2.NumberInStock && Item1.UnitPrice == Item2.UnitPrice && Item1.MinimunInventoryLevel == Item2.MinimunInventoryLevel && Item1.ItemName == Item2.ItemName);
 }
+Item operator<<(ostream& out, Item& Item1) 
+{
+	DisplayItem(Item1, out);
+}
+Item operator>> (ifstream& in, Item& Item1) 
+{
+	in >> Item1.ItemNumber;
+	in >> Item1.NumberInStock;
+	in >> Item1.UnitPrice;
+	in >> Item1.MinimunInventoryLevel;
+	in >> Item1.ItemName;
+}
 void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count) 
 {
 	int ItemNumber;
@@ -83,7 +95,7 @@ void RemoveItem(Item*& List, int& Position, int& Size, int& Count)
 	Size--;
 	Count--;
 }
-void DisplayItem(const Item* List, const int& Size, ostream& out)
+void DisplayItems(const Item* List, const int& Size, ostream& out)
 {
 	for (int i = 0; i < Size; i++) 
 	{
@@ -93,6 +105,14 @@ void DisplayItem(const Item* List, const int& Size, ostream& out)
 		out << List[i].UnitPrice << " ";
 		out << List[i].ItemName << endl;
 	}
+}
+void DisplayItem(const Item& Object, ostream& out) 
+{
+		out << Object.ItemNumber << " ";
+		out << Object.NumberInStock << " ";
+		out << Object.MinimunInventoryLevel << " ";
+		out << Object.UnitPrice << " ";
+		out << Object.ItemName << endl;
 }
 int SearchForItem(Item* List, const int& Size, Item Key)
 {
