@@ -16,11 +16,16 @@ struct Item
 		ItemNumber(Number), NumberInStock(InStock), UnitPrice(Price),
 		MinimunInventoryLevel(InventoryLevel), ItemName(Name)
 	{};
+	Item operator=(Item& Item1);
 };
-void CategorizeItems(ifstream&, Item*, int& Size);
-void AddItem(Item*, int& Size);
-void RemoveItem(Item*, int& Size);
-void InsertItem(Item*, int& Size);
-void DisplayItem(Item*, int& Size);
-void SearchForItem(Item*, int& Size);
+int DefaultSize = 0, DefaultCount = 0;
+void CategorizeItems(ifstream&, Item*, int& Size, int& Count = DefaultCount);
+void AddItem(Item*&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
+void RemoveItem(Item*&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
+void InsertItem(Item*&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
+void DisplayItem(const Item*, const int& Size);
+int SearchForItem(Item*, const int& Size, Item Key);
+bool operator==(Item& Item1, Item& Item2);
+Item operator<<(ostream& out, Item& Item1);
+Item operator>> (ifstream& in, Item& Item1);
 
