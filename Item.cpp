@@ -53,7 +53,9 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 	{
 		Item NewItem = DefineItem();
 		int Position = 0;
-		cout << "What position do you want your new object to be in?";
+	do
+	{
+		cout << "What position do you want your new object to be in? ";
 		do
 		{
 			cin >> Position;
@@ -69,9 +71,8 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 	}
 	if (Operation == "remove item" || Operation == "remove")
 	{
-		Item NewItem = DefineItem();
 		int Position = 0;
-		cout << "What object do you want to delete?";
+		cout << "What object do you want to delete? ";
 		do
 		{
 			cin >> Position;
@@ -87,11 +88,10 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 	}   
 	if (Operation == "output" || Operation == "print" || Operation == "<<")
 	{
-		Item NewItem = DefineItem();
 		string FileName;
 		ofstream OutputFile;
 		int Position = 0;
-		cout << "What output Filename do you prefer?";
+		cout << "What output Filename do you prefer? ";
 		do
 		{
 			cin >> FileName;
@@ -108,9 +108,8 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 	}   
 	if (Operation == "search item" || Operation == "search" || Operation == "find")
 	{
-		Item NewItem = DefineItem();
 		string ItemName = "";
-		cout << "What object do you want to delete?";
+		cout << "What object do you want to delete? ";
 		do
 		{
 			cin >> ItemName;
