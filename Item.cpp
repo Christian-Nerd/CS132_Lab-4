@@ -70,12 +70,63 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 			Count++;
 		}
 		else
-			AddItem(List, Size, Count);
+			AddItem(List, List[Iterator], Iterator, Size, Count);
 	}
 	File.clear();
 	File.seekg(ios::beg);
 }
-void AddItem(Item*& List, int& Position, int& Size, int& Count) 
+Item DefineItem() 
+{
+		Item Object;
+		cout << "Input your item name: ";
+		cin >> Object.ItemName;
+		while (!cin)
+		{
+			cout << "Input your Item Number: ";
+			cin >> Object.ItemNumber;
+			if (!cin)
+			{
+				cerr << "Invalid Item Number input an integer. " << endl;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		}
+		while (!cin) 
+		{
+			cout << "Input your Stock Number: ";
+			cin >> Object.NumberInStock;
+			if (!cin)
+			{
+				cerr << "Invalid Stock Number input an integer. " << endl;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		}
+		while (!cin) 
+		{
+			cout << "Input your Minimum Inventory: ";
+			cin >> Object.MinimunInventoryLevel;
+			if (!cin)
+			{
+				cerr << "Invalid Minimum Inventory Level input an integer. " << endl;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		}
+		while (!cin) 
+		{
+			cout << "Input your Item's Price: ";
+			cin >> Object.UnitPrice;
+			if (!cin)
+			{
+				cerr << "Invalid Price input a integer/decimal. " << endl;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		}
+		return Object;
+}
+void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count) 
 {
 	if (Count >= Size) 
 	{
@@ -90,7 +141,7 @@ void AddItem(Item*& List, int& Position, int& Size, int& Count)
 	for (int i = Position; i < Size - 1; i++) 
 	{
 		List[i + 1] = List[i];
-		List[i] = 
+		List[i] = Object;
 	}
 	Size++;
 	Count++;
