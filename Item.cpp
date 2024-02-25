@@ -130,7 +130,7 @@ Item DefineItem()
 }
 void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count) 
 {
-	if (Count >= Size) 
+	while (Position >= Size) 
 	{
 		Item* TempList = new Item[Size * 2];
 		for (int i = 0; i < Size - 1; i++)
@@ -150,9 +150,13 @@ void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count)
 }
 void RemoveItem(Item*& List, int Position, int& Size, int& Count) 
 {
-	for (int i = 0; i < Size - 1; i++) 
+	for (int i = Position; i < Size - 1; i++) 
 	{
 		List[i] = List[i + 1];
+	}
+	for (int i = 0; Position == Size - 1 && i < Size; i++) 
+	{
+		List[i + 1] = List[i];
 	}
 	Size--;
 	Count--;
