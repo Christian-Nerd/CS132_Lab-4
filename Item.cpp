@@ -13,14 +13,6 @@ Item Item::operator=(Item& Item1)
 }
 bool operator==(Item& Item1, Item& Item2) 
 {
-	/*
-	bool Same = false;
-	ItemNumber = Item1.ItemNumber;
-	NumberInStock = Item1.NumberInStock;
-	UnitPrice = Item1.UnitPrice;
-	MinimunInventoryLevel = Item1.MinimunInventoryLevel;
-	ItemName = Item1.ItemName;
-	*/
 	return (Item1.ItemNumber == Item2.ItemNumber && Item1.NumberInStock == Item2.NumberInStock && Item1.UnitPrice == Item2.UnitPrice && Item1.MinimunInventoryLevel == Item2.MinimunInventoryLevel && Item1.ItemName == Item2.ItemName);
 }
 Item operator<<(ostream& out, Item& Item1) 
