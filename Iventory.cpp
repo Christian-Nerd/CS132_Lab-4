@@ -28,5 +28,62 @@ int main()
 		}
 		AddItem(Inventory, NewItem, Position, Size, Count);
 	}
+	if (Operation == "remove item" || Operation == "remove")
+	{
+		Item NewItem = DefineItem();
+		int Position = 0;
+		cout << "What object do you want to delete?";
+		while (!cin)
+		{
+			cin >> Position;
+			if (!cin)
+			{
+				cerr << "Invalid Position must be within 0 and " << Size - 1;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		}
+		RemoveItem(Inventory, Position, Size, Count);
+	}   
+	if (Operation == "remove item" || Operation == "remove")
+	{
+		Item NewItem = DefineItem();
+		int Position = 0;
+		cout << "What object do you want to delete?";
+		while (!cin)
+		{
+			cin >> Position;
+			if (!cin)
+			{
+				cerr << "Invalid Position must be within 0 and " << Size - 1;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		}
+		RemoveItem(Inventory, Position, Size, Count);
+	}   
+	if (Operation == "search item" || Operation == "search" || Operation == "find")
+	{
+		Item NewItem = DefineItem();
+		string ItemName = "";
+		cout << "What object do you want to delete?";
+		while (!cin)
+		{
+			cin >> ItemName;
+			if (!cin)
+			{
+				cerr << "Invalid ItemName must be a name!";
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		}
+		int Index = SearchForItem(Inventory, Size, ItemName);
+		if (Index == -1)
+		{
+			cout << "Item not found.";
+		}
+		else
+			cout << "Item found at " + Index;
+	}   
 	return 0;
 }

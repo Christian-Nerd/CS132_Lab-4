@@ -18,6 +18,7 @@ bool operator==(Item& Item1, Item& Item2)
 Item operator<<(ostream& out, Item& Item1) 
 {
 	DisplayItem(Item1, out);
+	return Item1;
 }
 Item operator>> (ifstream& in, Item& Item1) 
 {
@@ -26,6 +27,7 @@ Item operator>> (ifstream& in, Item& Item1)
 	in >> Item1.UnitPrice;
 	in >> Item1.MinimunInventoryLevel;
 	in >> Item1.ItemName;
+	return Item1;
 }
 
 void OpenInvenentoryFile(ifstream& File)

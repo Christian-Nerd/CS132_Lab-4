@@ -26,7 +26,7 @@ void AddItem(Item*&, Item&, int Position = 0, int& Size = DefaultSize, int& Coun
 void RemoveItem(Item*&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
 void DisplayItems(const Item*, const int& Size, ostream&);
 void DisplayItem(const Item&,ostream&);
-int SearchForItem(Item*, const int& Size, Item Key);
+int SearchForItem(Item*, const int& Size, string Key);
 bool operator==(Item& Item1, Item& Item2);
 Item operator<<(ostream& out, Item& Item1);
 Item operator>> (ifstream& in, Item& Item1);
