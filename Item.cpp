@@ -148,7 +148,7 @@ void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count)
 	Size++;
 	Count++;
 }
-void RemoveItem(Item*& List, int& Position, int& Size, int& Count) 
+void RemoveItem(Item*& List, int Position, int& Size, int& Count) 
 {
 	for (int i = 0; i < Size - 1; i++) 
 	{
