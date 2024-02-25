@@ -35,6 +35,20 @@ Item operator>> (ifstream& in, Item& Item1)
 	in >> Item1.MinimunInventoryLevel;
 	in >> Item1.ItemName;
 }
+
+void OpenInvenentoryFile(ifstream& File)
+{
+	string Filename = "";
+	cout << "Please input the path for your inventory file: ";
+	cin >> Filename;
+	File.open(Filename, ios::in || ios::app);
+	while (!File.is_open())
+	{
+		cerr << endl << "Invalid File Path please renter: ";
+		cin >> Filename;
+		File.open(Filename, ios::in || ios::app);
+	}
+}
 void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count) 
 {
 	int ItemNumber;
@@ -61,11 +75,13 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 			List[Iterator].UnitPrice = UnitPrice;
 			List[Iterator].MinimunInventoryLevel = MinimunInventoryLevel;
 			List[Iterator].ItemName = ItemName;
+			Count++;
 		}
 		else
 			AddItem(List, Size, Count);
 	}
-	
+	File.clear();
+	File.seekg(ios::beg);
 }
 void AddItem(Item*& List, int& Position, int& Size, int& Count) 
 {
@@ -82,6 +98,7 @@ void AddItem(Item*& List, int& Position, int& Size, int& Count)
 	for (int i = Position; i < Size - 1; i++) 
 	{
 		List[i + 1] = List[i];
+		List[i] = 
 	}
 	Size++;
 	Count++;
@@ -114,11 +131,13 @@ void DisplayItem(const Item& Object, ostream& out)
 		out << Object.UnitPrice << " ";
 		out << Object.ItemName << endl;
 }
-int SearchForItem(Item* List, const int& Size, Item Key)
+int SearchForItem(Item* List, const int& Size, string Key)
 {
+	transform(Key.begin(), Key.end(), Key.begin(), tolower); // Convert Key Itemname to lowercase
 	for (int i = 0; i < Size; i++) 
 	{
-		if (List[i] == Key)
+		transform(List[i].ItemName.begin(), List[i].ItemName.end(), List[i].ItemName.begin(), tolower); // Convert Current Itemname to lowercase
+		if (List[i].ItemName == Key)
 			return i;
 	}
 	return -1;

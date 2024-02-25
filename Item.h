@@ -19,6 +19,7 @@ struct Item
 	Item operator=(Item& Item1);
 };
 int DefaultSize = 0, DefaultCount = 0;
+void OpenInvenentoryFile(ifstream&);
 void CategorizeItems(ifstream&, Item*, int& Size, int& Count = DefaultCount);
 void AddItem(Item*&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
 void RemoveItem(Item*&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
