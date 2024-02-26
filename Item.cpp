@@ -98,8 +98,9 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 				cin.ignore(INT_MAX, '\n');
 			}
 		} while (!cin || !OutputFile.is_open());
-		DisplayItems(Inventory, Count, OutputFile);
+		DisplayItems(Inventory, Count, OutputFile); // Writes to output file
 		cout << "File created!" << endl;
+		OutputFile.close();
 	}
 	if (Operation == "search item" || Operation == "search" || Operation == "find")
 	{
@@ -191,7 +192,7 @@ Item DefineItem()
 		Item Object;
 		cout << "Input your item name: ";
 		cin >> Object.ItemName;
-		while (!cin)
+		do
 		{
 			cout << "Input your Item Number: ";
 			cin >> Object.ItemNumber;
@@ -201,8 +202,8 @@ Item DefineItem()
 				cin.clear();
 				cin.ignore(INT_MAX, '\n');
 			}
-		}
-		while (!cin) 
+		} while (!cin);
+		do
 		{
 			cout << "Input your Stock Number: ";
 			cin >> Object.NumberInStock;
@@ -212,8 +213,8 @@ Item DefineItem()
 				cin.clear();
 				cin.ignore(INT_MAX, '\n');
 			}
-		}
-		while (!cin) 
+		} while (!cin);
+		do
 		{
 			cout << "Input your Minimum Inventory: ";
 			cin >> Object.MinimunInventoryLevel;
@@ -223,8 +224,8 @@ Item DefineItem()
 				cin.clear();
 				cin.ignore(INT_MAX, '\n');
 			}
-		}
-		while (!cin) 
+		} while (!cin);
+		do
 		{
 			cout << "Input your Item's Price: ";
 			cin >> Object.UnitPrice;
@@ -234,28 +235,29 @@ Item DefineItem()
 				cin.clear();
 				cin.ignore(INT_MAX, '\n');
 			}
-		}
+		} while (!cin);
 		return Object;
 }
 void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count) 
 {
-	while (Position >= Size) 
+	if (Position >= Size) 
 	{
 		Item* TempList = new Item[Size * 2];
-		for (int i = 0; i < Size - 1; i++)
+		for (int i = 0; i < Size; i++)
 		{
 			TempList[i] = List[i];
 		}
-		delete List;
+		delete [] List;
 		TempList = List;
 	}
-	for (int i = Position; i < Size - 1; i++) 
+	for (int i = Position; i < Size; i++) 
 	{
 		List[i + 1] = List[i];
 		List[i] = Object;
 	}
 	Size++;
 	Count++;
+	cout << "Item Added to Position " << Position << endl;
 }
 void RemoveItem(Item*& List, int Position, int& Size, int& Count) 
 {
