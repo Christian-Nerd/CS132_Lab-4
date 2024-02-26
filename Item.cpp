@@ -47,8 +47,8 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 {
 	cout << "Input your operation on the inventory: ";
 	string Operation;
-	transform(Operation.begin(), Operation.end(), Operation.begin(), tolower); // Convert Current Itemname to lowercase
 	cin >> Operation;
+	transform(Operation.begin(), Operation.end(), Operation.begin(), tolower); // Convert Current Itemname to lowercase
 	if (Operation == "add item" || Operation == "add")
 	{
 		Item NewItem = DefineItem();
@@ -65,65 +65,69 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 			}
 			AddItem(Inventory, NewItem, Position, Size, Count);
 		} while (!cin);
-		if (Operation == "remove item" || Operation == "remove")
+	}
+	if (Operation == "remove item" || Operation == "remove")
+	{
+		int Position = 0;
+		cout << "What object do you want to delete? ";
+		do
 		{
-			int Position = 0;
-			cout << "What object do you want to delete? ";
-			do
+			cin >> Position;
+			if (!cin)
 			{
-				cin >> Position;
-				if (!cin)
-				{
-					cerr << "Invalid Position must be within 0 and " << Size - 1;
-					cin.clear();
-					cin.ignore(INT_MAX, '\n');
-				}
-			} while (!cin);
-			RemoveItem(Inventory, Position, Size, Count);
-		}
-		if (Operation == "output" || Operation == "print" || Operation == "<<")
-		{
-			string FileName;
-			ofstream OutputFile;
-			int Position = 0;
-			cout << "What output Filename do you prefer? ";
-			do
-			{
-				cin >> FileName;
-				OutputFile.open(FileName, ios::out);
-				if (!OutputFile.is_open())
-				{
-					cerr << "Invalid Output Filename must be within 0 and " << Size - 1;
-					cin.clear();
-					cin.ignore(INT_MAX, '\n');
-				}
-			} while (!cin);
-			RemoveItem(Inventory, Position, Size, Count);
-		}
-		if (Operation == "search item" || Operation == "search" || Operation == "find")
-		{
-			string ItemName = "";
-			cout << "What object do you want to delete? ";
-			do
-			{
-				cin >> ItemName;
-				if (!cin)
-				{
-					cerr << "Invalid ItemName must be a name!";
-					cin.clear();
-					cin.ignore(INT_MAX, '\n');
-				}
-			} while (!cin);
-			int Index = SearchForItem(Inventory, Size, ItemName);
-			if (Index == -1)
-			{
-				cout << "Item not found.";
+				cerr << "Invalid Position must be within 0 and " << Size - 1;
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
 			}
-			else
-				cout << "Item found at " + Index;
+		} while (!cin);
+			RemoveItem(Inventory, Position, Size, Count);
+	}
+	if (Operation == "output" || Operation == "print" || Operation == "<<")
+	{
+		string FileName;
+		ofstream OutputFile;
+		cout << "What output Filename do you prefer? ";
+		do
+		{
+			cin >> FileName;
+			OutputFile.open(FileName, ios::out);
+			if (!OutputFile.is_open())
+			{
+				cerr << "Invalid Output Filename must be a regular name. ";
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		} while (!cin || !OutputFile.is_open());
+		for (int i = 0; i < Count; i++) 
+		{
+			OutputFile << Inventory;
 		}
+		cout << "File created!";
+	}
+	if (Operation == "search item" || Operation == "search" || Operation == "find")
+	{
+		string ItemName = "";
+		cout << "What object do you want to delete? ";
+		do
+		{
+			cin >> ItemName;
+			if (!cin)
+			{
+				cerr << "Invalid ItemName must be a name!";
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		} while (!cin);
+		int Index = SearchForItem(Inventory, Size, ItemName);
+		if (Index == -1)
+		{
+			cout << "Item not found.";
+		}
+		else
+			cout << "Item found at " + Index;
 	}
 }
+
 bool UserContinue() 
 {
 	bool Continue = false;
@@ -162,13 +166,13 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 	int Iterator = 0;
 	while (File)
 	{
-		File >> Line;
+		getline(File, Line);
 		StreamLine.str(Line);
-		File >> ItemNumber;
-		File >> NumberInStock;
-		File >> UnitPrice;
-		File >> MinimunInventoryLevel;
-		File >> ItemName;
+		StreamLine >> ItemNumber;
+		StreamLine >> NumberInStock;
+		StreamLine >> UnitPrice;
+		StreamLine >> MinimunInventoryLevel;
+		StreamLine >> ItemName;
 		if (Iterator < Size)
 		{
 			List[Iterator].ItemNumber = ItemNumber;
