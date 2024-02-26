@@ -249,13 +249,21 @@ void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count)
 		}
 		delete [] List; // Deallocate the original list
 		List = TempList; // Assign the list variable to TempList's list
+		List[Position] = Object;
+		TempList[Position] = Object;
+		List[Position] = Object;
 	}
-	for (int i = Position; i < Size; i++) 
+	else if (Position == Size - 1)
+		List[Position] = Object;
+	else 
 	{
-		List[i + 1] = List[i];
-		List[i] = Object;
+		for (int i = Position; i < Size-1; i++) 
+		{
+			List[i + 1] = List[i];
+		}
+		List[Position] = Object;
 	}
-	Size = Position >= Size? 2 : Size;
+	Size = Position >= Size? Size * 2 : Size;
 	Count++;
 	cout << "Item Added to Position " << Position << endl;
 }
