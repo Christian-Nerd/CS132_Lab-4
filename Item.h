@@ -27,7 +27,7 @@ void CategorizeItems(ifstream&, Item*, int& Size, int& Count = DefaultCount);
 Item DefineItem();
 void AddItem(Item*&, Item&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
 void RemoveItem(Item*&, int Position = 0, int& Size = DefaultSize, int& Count = DefaultCount);
-void DisplayItems(const Item*, const int& Count, ostream&);
+void DisplayItems(const Item*, const int& Size, ostream&);
 void DisplayItem(const Item&, ostream&);
 int SearchForItem(Item*, const int& Size, string Key);
 bool operator==(Item& Item1, Item& Item2);

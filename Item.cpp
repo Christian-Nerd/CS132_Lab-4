@@ -175,7 +175,7 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 			StreamLine >> UnitPrice;
 			List[Iterator].UnitPrice = stof(UnitPrice);
 			StreamLine >> MinimunInventoryLevel;
-			List[Iterator].MinimunInventoryLevel = stof(MinimunInventoryLevel);
+			List[Iterator].MinimunInventoryLevel = stoi(MinimunInventoryLevel);
 			StreamLine >> List[Iterator].ItemName;
 			Count++;
 			StreamLine.clear();
@@ -247,15 +247,15 @@ void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count)
 		{
 			TempList[i] = List[i];
 		}
-		delete [] List;
-		TempList = List;
+		delete [] List; // Deallocate the original list
+		List = TempList; // Assign the list variable to TempList's list
 	}
 	for (int i = Position; i < Size; i++) 
 	{
 		List[i + 1] = List[i];
 		List[i] = Object;
 	}
-	Size++;
+	Size = Position >= Size? 2 : Size;
 	Count++;
 	cout << "Item Added to Position " << Position << endl;
 }
@@ -272,9 +272,9 @@ void RemoveItem(Item*& List, int Position, int& Size, int& Count)
 	Size--;
 	Count--;
 }
-void DisplayItems(const Item* List, const int& Count, ostream& out)
+void DisplayItems(const Item* List, const int& Size, ostream& out)
 {
-	for (int i = 0; i < Count; i++) 
+	for (int i = 0; i < Size; i++) 
 	{
 		out << List[i].ItemNumber << " ";
 		out << List[i].NumberInStock << " ";
