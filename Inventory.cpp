@@ -175,13 +175,13 @@ Item DefineItem()
 		{
 			cout << "Input your Stock Number: ";
 			cin >> Object.NumberInStock;
-			if (!cin)
+			if (!cin || Object.NumberInStock < 0 || Object.NumberInStock > 999)
 			{
-				cerr << "Invalid Stock Number input an integer. " << endl;
+				cerr << "Invalid Stock Number input an integer between 0-999. " << endl;
 				cin.clear();
 				cin.ignore(INT_MAX, '\n');
 			}
-		} while (!cin);
+		} while (!cin || Object.NumberInStock < 0 || Object.NumberInStock > 999);
 		do
 		{
 			cout << "Input your Minimum Inventory: ";
