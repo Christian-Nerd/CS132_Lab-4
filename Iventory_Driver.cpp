@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "Inventory.h"
 Item *Inventory = new Item[50];
 int Size, Count;
 ifstream Data;
