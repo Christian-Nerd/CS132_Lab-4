@@ -98,7 +98,7 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 				cin.ignore(INT_MAX, '\n');
 			}
 		} while (!cin || !OutputFile.is_open());
-		DisplayItems(Inventory, Count, OutputFile); // Writes to output file
+		DisplayItems(Inventory, Size, OutputFile); // Writes to output file
 		cout << "File created!" << endl;
 		OutputFile.close();
 	}

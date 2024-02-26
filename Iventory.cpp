@@ -1,17 +1,16 @@
 #include "Item.h"
-Item *Inventory;
+Item *Inventory = new Item[50];
 int Size, Count;
 ifstream Data;
 int main() 
 {
 	cout << setprecision(2);
+	Size = 50;
+	Count = 0;
 	OpenInvenentoryFile(Data);
+	CategorizeItems(Data, Inventory, Size, Count);
 	do
 	{
-		Inventory = new Item[50];
-		Size = 50;
-		Count = 0;
-		CategorizeItems(Data, Inventory, Size, Count);
 		cout << "You can output your inventory to a file, add/remove items, and search for items by name";
 		cout << endl;
 		ChooseOperation(Data, Inventory, Size, Count);
