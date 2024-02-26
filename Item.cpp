@@ -102,7 +102,7 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 		{
 			OutputFile << Inventory;
 		}
-		cout << "File created!";
+		cout << "File created!" << endl;
 	}
 	if (Operation == "search item" || Operation == "search" || Operation == "find")
 	{
@@ -156,10 +156,10 @@ bool UserContinue()
 }
 void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count) 
 {
-	int ItemNumber;
-	int NumberInStock;
-	float UnitPrice;
-	int MinimunInventoryLevel;
+	string ItemNumber;
+	string NumberInStock;
+	string UnitPrice;
+	string MinimunInventoryLevel;
 	string ItemName;
 	string Line;
 	stringstream StreamLine; 
@@ -168,22 +168,24 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 	{
 		getline(File, Line);
 		StreamLine.str(Line);
-		StreamLine >> ItemNumber;
-		StreamLine >> NumberInStock;
-		StreamLine >> UnitPrice;
-		StreamLine >> MinimunInventoryLevel;
-		StreamLine >> ItemName;
 		if (Iterator < Size)
 		{
-			List[Iterator].ItemNumber = ItemNumber;
-			List[Iterator].NumberInStock = NumberInStock;
-			List[Iterator].UnitPrice = UnitPrice;
-			List[Iterator].MinimunInventoryLevel = MinimunInventoryLevel;
-			List[Iterator].ItemName = ItemName;
+			cout << !StreamLine;
+			StreamLine >> ItemNumber;
+			List[Iterator].ItemNumber = stoi(ItemNumber);
+			StreamLine >> NumberInStock;
+			 List[Iterator].NumberInStock = stoi(NumberInStock);
+			StreamLine >> UnitPrice;
+			List[Iterator].UnitPrice = stof(UnitPrice);
+			StreamLine >> MinimunInventoryLevel;
+			List[Iterator].MinimunInventoryLevel = stof(MinimunInventoryLevel);
+			StreamLine >> List[Iterator].ItemName;
 			Count++;
+			cout << !StreamLine;
 		}
 		else
 			AddItem(List, List[Iterator], Iterator, Size, Count);
+		Iterator++;
 	}
 	File.clear();
 	File.seekg(ios::beg);

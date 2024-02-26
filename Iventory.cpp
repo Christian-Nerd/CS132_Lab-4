@@ -1,6 +1,7 @@
 #include "Item.h"
 int main() 
 {
+	cout << setprecision(2);
 	do
 	{
 		Item *Inventory = new Item[50];
