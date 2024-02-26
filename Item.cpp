@@ -43,7 +43,7 @@ void OpenInvenentoryFile(ifstream& File)
 		File.open(Filename, ios::in || ios::app);
 	}
 }
-void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
+void ChooseOperation(ifstream& Data, Item*& Inventory, int& Size, int& Count)
 {
 	cout << "Input your operation on the inventory: ";
 	string Operation;
@@ -152,7 +152,7 @@ bool UserContinue()
 	} while (!cin);
 	return Continue;
 }
-void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count) 
+void CategorizeItems(ifstream& File, Item*& List, int& Size, int& Count) 
 {
 	string ItemNumber;
 	string NumberInStock;
@@ -292,7 +292,7 @@ void DisplayItems(const Item* List, const int& Size, ostream& out)
 		out << endl;
 	}
 }
-void DisplayItem(const Item& Object, ostream& out) 
+void DisplayItem(const Item Object, ostream& out) 
 {
 		out << Object.ItemNumber << " ";
 		out << Object.NumberInStock << " ";
@@ -301,7 +301,7 @@ void DisplayItem(const Item& Object, ostream& out)
 		out << Object.ItemName;
 		out << endl;
 }
-int SearchForItem(Item* List, const int& Size, string Key)
+int SearchForItem(Item*& List, const int& Size, string Key)
 {
 	transform(Key.begin(), Key.end(), Key.begin(), tolower); // Convert Key Itemname to lowercase
 	for (int i = 0; i < Size; i++) 
