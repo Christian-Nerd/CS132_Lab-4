@@ -43,7 +43,7 @@ void OpenInvenentoryFile(ifstream& File)
 		File.open(Filename, ios::in || ios::app);
 	}
 }
-void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count) 
+void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 {
 	cout << "Input your operation on the inventory: ";
 	string Operation;
@@ -53,11 +53,9 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 	{
 		Item NewItem = DefineItem();
 		int Position = 0;
-	do
-	{
-		cout << "What position do you want your new object to be in? ";
 		do
 		{
+			cout << "What position do you want your new object to be in? ";
 			cin >> Position;
 			if (!cin)
 			{
@@ -65,72 +63,67 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 				cin.clear();
 				cin.ignore(INT_MAX, '\n');
 			}
+			AddItem(Inventory, NewItem, Position, Size, Count);
+		} while (!cin);
+		if (Operation == "remove item" || Operation == "remove")
+		{
+			int Position = 0;
+			cout << "What object do you want to delete? ";
+			do
+			{
+				cin >> Position;
+				if (!cin)
+				{
+					cerr << "Invalid Position must be within 0 and " << Size - 1;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
+			} while (!cin);
+			RemoveItem(Inventory, Position, Size, Count);
 		}
-		while (!cin);
-		AddItem(Inventory, NewItem, Position, Size, Count);
+		if (Operation == "output" || Operation == "print" || Operation == "<<")
+		{
+			string FileName;
+			ofstream OutputFile;
+			int Position = 0;
+			cout << "What output Filename do you prefer? ";
+			do
+			{
+				cin >> FileName;
+				OutputFile.open(FileName, ios::out);
+				if (!OutputFile.is_open())
+				{
+					cerr << "Invalid Output Filename must be within 0 and " << Size - 1;
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
+			} while (!cin);
+			RemoveItem(Inventory, Position, Size, Count);
+		}
+		if (Operation == "search item" || Operation == "search" || Operation == "find")
+		{
+			string ItemName = "";
+			cout << "What object do you want to delete? ";
+			do
+			{
+				cin >> ItemName;
+				if (!cin)
+				{
+					cerr << "Invalid ItemName must be a name!";
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
+			} while (!cin);
+			int Index = SearchForItem(Inventory, Size, ItemName);
+			if (Index == -1)
+			{
+				cout << "Item not found.";
+			}
+			else
+				cout << "Item found at " + Index;
+		}
 	}
-	if (Operation == "remove item" || Operation == "remove")
-	{
-		int Position = 0;
-		cout << "What object do you want to delete? ";
-		do
-		{
-			cin >> Position;
-			if (!cin)
-			{
-				cerr << "Invalid Position must be within 0 and " << Size - 1;
-				cin.clear();
-				cin.ignore(INT_MAX, '\n');
-			}
-		} 
-		while (!cin);
-		RemoveItem(Inventory, Position, Size, Count);
-	}   
-	if (Operation == "output" || Operation == "print" || Operation == "<<")
-	{
-		string FileName;
-		ofstream OutputFile;
-		int Position = 0;
-		cout << "What output Filename do you prefer? ";
-		do
-		{
-			cin >> FileName;
-			OutputFile.open(FileName, ios::out);
-			if (!OutputFile.is_open())
-			{
-				cerr << "Invalid Output Filename must be within 0 and " << Size - 1;
-				cin.clear();
-				cin.ignore(INT_MAX, '\n');
-			}
-		}
-		while (!cin);
-		RemoveItem(Inventory, Position, Size, Count);
-	}   
-	if (Operation == "search item" || Operation == "search" || Operation == "find")
-	{
-		string ItemName = "";
-		cout << "What object do you want to delete? ";
-		do
-		{
-			cin >> ItemName;
-			if (!cin)
-			{
-				cerr << "Invalid ItemName must be a name!";
-				cin.clear();
-				cin.ignore(INT_MAX, '\n');
-			}
-		}
-		while (!cin);
-		int Index = SearchForItem(Inventory, Size, ItemName);
-		if (Index == -1)
-		{
-			cout << "Item not found.";
-		}
-		else
-			cout << "Item found at " + Index;
-	}   
 }
-
 bool UserContinue() 
 {
 	bool Continue = false;
