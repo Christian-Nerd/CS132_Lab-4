@@ -98,10 +98,7 @@ void ChooseOperation(ifstream& Data, Item* Inventory, int& Size, int& Count)
 				cin.ignore(INT_MAX, '\n');
 			}
 		} while (!cin || !OutputFile.is_open());
-		for (int i = 0; i < Count; i++) 
-		{
-			OutputFile << Inventory;
-		}
+		DisplayItems(Inventory, Count, OutputFile);
 		cout << "File created!" << endl;
 	}
 	if (Operation == "search item" || Operation == "search" || Operation == "find")
@@ -170,7 +167,6 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 		StreamLine.str(Line);
 		if (Iterator < Size)
 		{
-			cout << !StreamLine;
 			StreamLine >> ItemNumber;
 			List[Iterator].ItemNumber = stoi(ItemNumber);
 			StreamLine >> NumberInStock;
@@ -181,7 +177,6 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 			List[Iterator].MinimunInventoryLevel = stof(MinimunInventoryLevel);
 			StreamLine >> List[Iterator].ItemName;
 			Count++;
-			cout << !StreamLine;
 			StreamLine.clear();
 		}
 		else
@@ -275,15 +270,16 @@ void RemoveItem(Item*& List, int Position, int& Size, int& Count)
 	Size--;
 	Count--;
 }
-void DisplayItems(const Item* List, const int& Size, ostream& out)
+void DisplayItems(const Item* List, const int& Count, ostream& out)
 {
-	for (int i = 0; i < Size; i++) 
+	for (int i = 0; i < Count; i++) 
 	{
 		out << List[i].ItemNumber << " ";
 		out << List[i].NumberInStock << " ";
 		out << List[i].MinimunInventoryLevel << " ";
 		out << List[i].UnitPrice << " ";
-		out << List[i].ItemName << endl;
+		out << List[i].ItemName;
+		out << endl;
 	}
 }
 void DisplayItem(const Item& Object, ostream& out) 
@@ -292,7 +288,8 @@ void DisplayItem(const Item& Object, ostream& out)
 		out << Object.NumberInStock << " ";
 		out << Object.MinimunInventoryLevel << " ";
 		out << Object.UnitPrice << " ";
-		out << Object.ItemName << endl;
+		out << Object.ItemName;
+		out << endl;
 }
 int SearchForItem(Item* List, const int& Size, string Key)
 {
