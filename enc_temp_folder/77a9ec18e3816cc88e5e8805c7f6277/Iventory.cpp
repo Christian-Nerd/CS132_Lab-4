@@ -5,7 +5,7 @@ int main()
 	do
 	{
 		Item *Inventory = new Item[50];
-		int Size = 50, Count = 0;
+		int Size = 50, Count = 0;;
 		ifstream Data;
 		OpenInvenentoryFile(Data);
 		CategorizeItems(Data, Inventory, Size, Count);

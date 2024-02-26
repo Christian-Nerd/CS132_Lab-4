@@ -182,6 +182,7 @@ void CategorizeItems(ifstream& File, Item* List, int& Size, int& Count)
 			StreamLine >> List[Iterator].ItemName;
 			Count++;
 			cout << !StreamLine;
+			StreamLine.clear();
 		}
 		else
 			AddItem(List, List[Iterator], Iterator, Size, Count);
