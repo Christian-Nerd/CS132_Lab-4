@@ -105,7 +105,7 @@ void ChooseOperation(ifstream& Data, Item*& Inventory, int& Size, int& Count)
 	if (Operation == "search item" || Operation == "search" || Operation == "find")
 	{
 		string ItemName = "";
-		cout << "What object do you want to delete? ";
+		cout << "What object do you want to find? ";
 		do
 		{
 			cin >> ItemName;
@@ -122,7 +122,7 @@ void ChooseOperation(ifstream& Data, Item*& Inventory, int& Size, int& Count)
 			cout << "Item not found.";
 		}
 		else
-			cout << "Item found at " + Index;
+			cout << "Item found at " << Index << endl;
 	}
 }
 
@@ -242,7 +242,7 @@ void AddItem(Item*& List, Item& Object, int Position, int& Size, int& Count)
 {
 	if (Position >= Size) 
 	{
-		Item* TempList = new Item[Size * 2];
+		Item* TempList = new Item[Position * 2];
 		for (int i = 0; i < Size; i++)
 		{
 			TempList[i] = List[i];
